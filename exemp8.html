@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Modelo de Placa</title>
+
+<style>
+
+/* FONTES (usando Montserrat como substituto da Gotham) */
+
+@font-face {
+    font-family: 'GothamLight';
+    src: url('Montserrat/static/Montserrat-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'GothamBook';
+    src: url('Montserrat/static/Montserrat-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'GothamBlack';
+    src: url('Montserrat/static/Montserrat-ExtraBold.ttf') format('truetype');
+}
+
+body{
+    margin:0;
+    padding:0;
+    font-family:'GothamBook', Montserrat, Arial, sans-serif;
+    background:#e5e5e5;
+}
+
+/* container da placa */
+
+#placa{
+    width:1500px;
+    margin:auto;
+    background:#d9d9d9;
+    padding:40px;
+}
+
+/* titulo governo */
+
+.tituloGoverno{
+    font-family:'GothamBlack';
+    font-size:80px;
+    text-align:center;
+    color:#002B7F;
+}
+
+/* faixa verde */
+
+.faixaVerde{
+    margin-top:40px;
+    background:#00FF00;
+    border-radius:40px;
+    text-align:center;
+    padding:60px 0;
+}
+
+.faixaVerde h1{
+    font-family:'GothamBlack';
+    font-size:140px;
+    margin:0;
+    color:#002B7F;
+}
+
+.faixaVerde h2{
+    font-family:'GothamBlack';
+    font-size:120px;
+    margin:0;
+    color:#002B7F;
+}
+
+/* titulo obra */
+
+.tituloObra{
+    margin-top:80px;
+    text-align:center;
+    font-size:90px;
+    font-family:'GothamBlack';
+    color:#2c4f6b;
+}
+
+/* campos */
+
+.campo{
+    margin-top:40px;
+}
+
+.campo label{
+    display:block;
+    font-size:32px;
+    font-family:'GothamBook';
+    margin-bottom:10px;
+}
+
+.campo input{
+    width:100%;
+    padding:20px;
+    font-size:40px;
+    font-family:'GothamLight';
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="placa">
+
+<div class="tituloGoverno">
+GOVERNO DO ESTADO
+</div>
+
+<div class="faixaVerde">
+<h1>PARANÁ</h1>
+<h2>EM OBRAS</h2>
+</div>
+
+<div class="tituloObra">
+<input type="text" placeholder="DUPLICAÇÃO RODOVIA DOS MINÉRIOS">
+</div>
+
+<div class="campo">
+<label>Município</label>
+<input type="text" placeholder="PIRAQUARA">
+</div>
+
+<div class="campo">
+<label>Contrato</label>
+<input type="text" placeholder="000/2024">
+</div>
+
+<div class="campo">
+<label>Valor da Obra</label>
+<input type="text" placeholder="R$ 50.000.000,00">
+</div>
+
+<div class="campo">
+<label>Prazo</label>
+<input type="text" placeholder="18 meses">
+</div>
+
+</div>
+
+</body>
+</html>
