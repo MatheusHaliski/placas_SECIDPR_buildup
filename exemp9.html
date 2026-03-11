@@ -1,519 +1,362 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página com Fundo Cinza Claro</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Eras+Medium+ITC&display=swap">
-    <style>
- input[type="text"] {
-            text-align: right;
-            font-size: 85px;
-            color: #1c3b61;
-	    font-family: 'Gotham Light';
-            margin-right: 0px;
-            border: none;
-            background-color: transparent;
-            width: 100%;
-            outline: none;
-}
-@font-face {
-    font-family: 'MontserratLight';
-    src: url('Montserrat-Light.ttf') format('truetype');
-}
-@font-face {
-    font-family: 'GothamLight';
-    src: url('Gotham-Light.otf') format('truetype');
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editor da Placa SECID</title>
+  <style>
+    @font-face {
+      font-family: 'MontserratLight';
+      src: url('Montserrat-Light.ttf') format('truetype');
+    }
 
+    @font-face {
+      font-family: 'GothamLight';
+      src: url('Gotham-Light.otf') format('opentype');
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #bfbfbf;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+    body {
+      margin: 0;
+      font-family: 'MontserratLight', Arial, sans-serif;
+      background: linear-gradient(160deg, #d6d9de 0%, #c2c6cd 100%);
+      color: #102640;
+    }
 
-        .container {
-	    margin-top:0px;
-            text-align: center;
-            flex: 1;
-        }
+    .page {
+      max-width: 1900px;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
 
-        #img01, #img02, #img03 {
-            border-radius: 20px;
-	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-        }
+    .form-panel {
+      background: #f8fbff;
+      border: 2px solid #d5e4f3;
+      border-radius: 18px;
+      box-shadow: 0 8px 25px rgba(16, 38, 64, 0.15);
+      padding: 20px;
+    }
 
-        #img03, #img004,#img04, #infoBox1, #infoBox2 {
-            position: absolute;
-        }
+    .form-panel h1 {
+      margin: 0 0 12px;
+      font-size: 28px;
+      color: #0f3b69;
+    }
 
-        #img03 {
-            height: 90px;
-            width: 160px;
-            left: 40px;
-        }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(220px, 1fr));
+      gap: 14px;
+    }
 
-        #img04 {
-              height: 90px;
-            width: 220px;
-            left: 390px;
-	    bottom:16px;
-        }
- #img004 {
-            height: 120px;
-            width: 170px;
- 		left: 140px;
-            
-        }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: #edf5ff;
+      border: 1px solid #cfe0f2;
+      border-radius: 12px;
+      padding: 10px;
+    }
 
-        #img05 {
-            width: 100px;
-	    height:90px;
-            position: absolute;
-            left: 594px;
-        }
+    .field label {
+      font-weight: 700;
+      font-size: 13px;
+      color: #124879;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
 
-        #img06 {
-            height: 90px;
-            width: 220px;
-            position: absolute;
-            right: 20px;
-        }
- #imgbar {
-            position: absolute;
-            right: 1170px;
-	    bottom:5px;
-	    height:120px;
-	    
-        }
-        h2 {
-            padding-left: 20px;
-            text-align: right;
-            font-size: 85px;
-            color: #1c3b61;
-            font-family: 'Gotham Light';
-            margin-right: 0px;
-        }
+    .field input,
+    .field select {
+      height: 38px;
+      border-radius: 8px;
+      border: 1px solid #9fc0e1;
+      padding: 0 10px;
+      font-size: 14px;
+      color: #0c2b4a;
+      background: #fff;
+    }
 
-        footer {
-            height: 110px;
-            background-color: #fff;
-            padding: 10px;
-            text-align: center;
-            position: relative;
-		bottom:0px;
-        }
+    .field input:focus,
+    .field select:focus {
+      outline: 2px solid #70aee8;
+      border-color: #70aee8;
+    }
 
-        #infoBox1, #infoBox2 {
-            position: absolute;
-            left: 50px;
-            background-color: #fff;
-            border: 1px solid #1c3b61;
-            margin-top: 15px;
-            height: 70px;
-            width: 410px;
-            text-align: left;
-            padding:0px;
-        }
+    .checkbox-group {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-top: 8px;
+      color: #124879;
+      font-weight: 700;
+    }
 
-        #infoBox1 {
-            left: 780px;
-        }
+    .plate-wrap {
+      position: relative;
+      margin: 0 auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #c8c8c8;
+      width: 1850px;
+      max-width: 100%;
+    }
 
-        #infoBox2 {
- 	width: 430px;
-            left: 1220px;
-        }
+    .container {
+      margin-top: 0;
+      text-align: center;
+      padding-top: 30px;
+    }
 
-       strong {
-font-size:12px;
-color: #001e6f; /* Cor azul para o texto */
-	font-weight: normal;
-            text-align: left;
-            display: block;
-            margin-bottom: 5px;
-font-family: 'Gotham Black';
-        }
+    #img01,
+    #img02,
+    #img03 {
+      border-radius: 20px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    }
 
-        p {
-            text-align: left;
-            margin: 0;
-color: #001e6f; /* Cor azul para o texto */
-font-weight: normal;
-        }
-	#p1{
-	    position:absolute;
-	    left:120px;
-	    top:0px;
-	    font-family: 'Gotham Black';
-font-weight: normal;
-}
-	#p2{
-	    position:absolute;
-	    left:140px;
-	    top:19px;
-font-family: 'Gotham Black';
-font-weight: normal;
-}
-	#p3{
-	    position:absolute;
-	    left:150px;
-	    top:41px;
-font-family: 'Gotham Black';
-font-weight: normal;
-}
-#p31{
-	    position:absolute;
-	    left:102px;
-	    top:0px;
-font-family: 'Gotham Black';
-font-weight: normal;
-}
-#p32{
-	    position:absolute;
-	     left:84px;
-	    top:20px;
-font-family: 'Gotham Black';
-font-weight: normal;
-}
-#p33{
-	    position:absolute;
-	    left:83px;
-	    top:40px;
-font-family: 'Gotham Black';
-font-weight: normal;
-}
-.placamodelo42{
-	position:absolute;
-	margin-top:110px;
-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-}
-.font9865{
-  font-family: Montserrat;
-  font-size: 80px;
-  font-weight: bold;
-}
-    </style>
+    .title-input {
+      text-align: center;
+      font-size: 70px;
+      color: #1c3b61;
+      font-family: 'GothamLight', sans-serif;
+      border: none;
+      background-color: transparent;
+      width: 100%;
+      outline: none;
+      margin-bottom: 26px;
+    }
+
+    footer {
+      height: 110px;
+      background-color: #fff;
+      padding: 10px;
+      text-align: center;
+      position: relative;
+    }
+
+    #img04,
+    #imgBID,
+    #imgFUNDEPAR,
+    #infoBox1,
+    #infoBox2 {
+      position: absolute;
+    }
+
+    #imgBID,
+    #imgFUNDEPAR {
+      height: 90px;
+      width: 130px;
+      bottom: 14px;
+      display: none;
+      object-fit: contain;
+    }
+
+    #imgBID { left: 35px; }
+    #imgFUNDEPAR { left: 172px; }
+
+    #img04 {
+      height: 90px;
+      width: 220px;
+      left: 390px;
+      bottom: 16px;
+      object-fit: contain;
+    }
+
+    #img05 {
+      width: 100px;
+      height: 90px;
+      position: absolute;
+      left: 594px;
+      bottom: 18px;
+      object-fit: contain;
+    }
+
+    #img06 {
+      height: 90px;
+      width: 220px;
+      position: absolute;
+      right: 20px;
+      bottom: 18px;
+      object-fit: contain;
+    }
+
+    #imgbar {
+      position: absolute;
+      right: 1170px;
+      bottom: 5px;
+      height: 120px;
+    }
+
+    #infoBox1,
+    #infoBox2 {
+      left: 50px;
+      background-color: #fff;
+      border: 1px solid #1c3b61;
+      margin-top: 15px;
+      height: 70px;
+      width: 410px;
+      text-align: left;
+      padding: 0;
+    }
+
+    #infoBox1 { left: 780px; }
+    #infoBox2 { width: 430px; left: 1220px; }
+
+    strong {
+      font-size: 12px;
+      color: #001e6f;
+      font-weight: normal;
+      text-align: left;
+      display: block;
+      margin-bottom: 5px;
+      font-family: 'MontserratLight', sans-serif;
+    }
+
+    .line-value {
+      position: absolute;
+      color: #001e6f;
+      font-family: 'MontserratLight', sans-serif;
+      font-size: 17px;
+      text-transform: uppercase;
+    }
+
+    #p1 { left: 120px; top: 0; }
+    #p2 { left: 140px; top: 20px; }
+    #p3 { left: 150px; top: 40px; }
+    #p31 { left: 102px; top: 0; }
+    #p32 { left: 84px; top: 20px; }
+    #p33 { left: 83px; top: 40px; }
+  </style>
 </head>
 <body>
-    <script>
-        function generatePDF() {
-	window.print();
-        }
-function dispBID() {
-            var checkbox = document.getElementById("bidCheckbox");
- 	     var checkbox1 = document.getElementById("bidCheckbox1");
-            var imgBID = document.getElementById("img004");
+  <div class="page">
+    <section class="form-panel">
+      <h1>Formulário da Placa SECID</h1>
+      <div class="form-grid">
+        <div class="field"><label for="obraTitulo">Título da obra</label><input id="obraTitulo" value="CONSTRUÇÃO DA DELEGACIA CIDADÃ IIIA" /></div>
+        <div class="field"><label for="valorObra">Valor da obra</label><input id="valorObra" placeholder="R$ 0,00" /></div>
+        <div class="field"><label for="fonteRecurso">Fonte de recurso</label><input id="fonteRecurso" /></div>
+        <div class="field"><label for="prazoExecucao">Prazo de execução</label><input id="prazoExecucao" /></div>
 
-            if (checkbox.checked) {
-		imgBID.style.left = "140px";
-                imgBID.style.display = "block";
-            } else {
-		imgBID.style.display = "none";
-			if (checkbox1.checked) {
-                		imgBID.style.display = "block";
-				imgBID.src = "logofundepar.PNG";
-				imgBID.style.left = "200px";
-            }else{
-			imgBID.src = "BID.JPG";
-        }}}
-        function displayimg() {
-            var logoDropdown = document.getElementById("logoDropdown");
-            var selectedValue = logoDropdown.options[logoDropdown.selectedIndex].value;
-            if (selectedValue == "1"){
-		f = document.getElementById("img05");
-		f.src = 'SDG-16.svg';
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-} else if (selectedValue == "2"){
-		fw = document.getElementById("img05");
-		fw.src = 'SDG-2.svg';
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}else if (selectedValue == "3"){
-		console.log('hi3');
-		fw = document.getElementById("img05");
-		fw.src = "SDG-1.svg";
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}else if (selectedValue == "4"){
-		fw = document.getElementById("img05");
-		fw.src = "SDG-4.svg";
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}else if (selectedValue == "5"){
-		fw = document.getElementById("img05");
-		fw.src = "SDG-3.svg";
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}else if (selectedValue == "6"){
-		fw = document.getElementById("img05");
-		fw.src = "SDG-5.svg";
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}else if (selectedValue == "7"){
-		fw = document.getElementById("img05");
-		fw.src = "SDG-7.svg";
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}else if (selectedValue == "8"){
-		fw = document.getElementById("img05");
-		fw.src = "SDG-8.svg";
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}else if (selectedValue == "9"){
-		fw = document.getElementById("img05");
-		fw.src = "SDG-9.svg";
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}else if (selectedValue == "10"){
-		fw = document.getElementById("img05");
-		fw.src = "SDG-10.svg";
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}else if (selectedValue == "11"){
-		fw = document.getElementById("img05");
-		fw.src = "SDG-11.svg";
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}else if (selectedValue == "12"){
-		fw = document.getElementById("img05");
-		fw.src= "SDG-12.svg";
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}else if (selectedValue == "13"){
-		fw = document.getElementById("img05");
-		fw.src = "SDG-13.svg";
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}else if (selectedValue == "14"){
-		fw = document.getElementById("img05");
-		fw.src = "SDG-14.svg";
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}else if (selectedValue == "15"){
-		fw = document.getElementById("img05");
-		fw.src = "SDG-15.svg";
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}else if (selectedValue == "16"){
-		fw = document.getElementById("img05");
-		fw.src = "SDG-17.svg";
-		f2 = document.getElementById("gl9");
-		f2.style.display = 'none';
-}
-        }
-function displayimg1() {
-            var logoDropdown1 = document.getElementById("logoDropdown1");
-            var selectedValue = logoDropdown1.options[logoDropdown1.selectedIndex].value;
-f = document.getElementById("img04");
-            if (selectedValue == "1"){
-f = document.getElementById("img04");
-		f.style.width = "186px";
-		f.style.height = "107px";
-		f.style.bottom = "20px";
-		f.src ="Capturar77.JPG";
-} else if (selectedValue == "2"){
-f = document.getElementById("img04");
-   	f.style.height="90px";
-            f.style.width= "220px";
-		f.style.left = "320px";
-		f.src = "SESP.JPG";
-}else if (selectedValue == "3"){
-f = document.getElementById("img04");
-   	f.style.height="90px";
-            f.style.width= "220px";
-		f.style.left = "330px";
-		f.src = "Capturar77.JPG";
-}else if (selectedValue == "4"){
-f = document.getElementById("img04");
-f.style.left = "360px";
-		f.src = 'SECCOM.PNG';
-}else if (selectedValue == "5"){
-f.style.width = "182px";
-		f.style.height = "110px";
-f.style.left = "360px";
-f = document.getElementById("img04");
-		f.src = 'secfez.PNG';
-}else if (selectedValue == "6"){
-f = document.getElementById("img04");
-f.style.width = "165px";
-		f.style.height = "105px";
-		f.src = 'SEIMT.PNG';
-}else if (selectedValue == "7"){
-f = document.getElementById("img04");
-		f.src = 'secagab.PNG';
-}else if (selectedValue == "8"){
-f = document.getElementById("img04");
-f.style.left = "360px";
-		f.src = 'seccul.PNG';
-}else if (selectedValue == "9"){
-f = document.getElementById("img04");
-		f.src = 'secics.PNG';
-}else if (selectedValue == "10"){
-f = document.getElementById("img04");
-		f.src = 'secjuscid.PNG';
-}else if (selectedValue == "11"){
-f = document.getElementById("img04");
-		f.src = 'seccte.PNG';
-}else if (selectedValue == "12"){
-f = document.getElementById("img04");
-		f.style.left = "350px";
-		f.src = 'secedu.PNG';
-}else if (selectedValue == "13"){
-f = document.getElementById("img04");
-		f.style.left = "330px";
-		f.src = 'secinf.PNG';
-}else if (selectedValue == "14"){
-f = document.getElementById("img04");
-		f.style.bottom = "6px";
-		f.style.height = "112px";
-		f.style.width = "200px";
-		f.src = 'secido.PNG';
-}}
-function displayimg2() {
-            var logoDropdown2 = document.getElementById("logoDropdown2");
-            var selectedValue = logoDropdown2.options[logoDropdown2.selectedIndex].value;
-f = document.getElementById("img06");
-            if (selectedValue == "1"){
-		f.src ="Capturar77.JPG";
-} else if (selectedValue == "2"){
-		f.src =  "SESP.JPG";
-}else if (selectedValue == "3"){
-		f.src = "Capturar77.JPG";
-}else if (selectedValue == "4"){
-		f.src = 'seccom.PNG';
-}else if (selectedValue == "5"){
-		f.src = 'secfez.PNG';
-}else if (selectedValue == "6"){
-		f.src = 'secinv.PNG';
-}else if (selectedValue == "7"){
-		f.src = 'secagab.PNG';
-}else if (selectedValue == "8"){
-		f.src = 'seccul.PNG';
-}else if (selectedValue == "9"){
-		f.src = 'secics.PNG';
-}else if (selectedValue == "10"){
-		f.src = 'secjuscid.PNG';
-}else if (selectedValue == "11"){
-		f.src = 'seccte.PNG';
-}else if (selectedValue == "12"){
-		f.src = 'secedu.PNG';
-}else if (selectedValue == "13"){
-		f.src = 'secinf.PNG';
-}else if (selectedValue == "14"){
-		f.style.bottom = "6px";
-		f.src = 'secido.PNG';
-}
-        }
-    </script>
-<div class="placamodelo42">
-    <div class="container">
-        <img id="img01" style="margin-bottom:40px;font-family:'Gotham Light'" src="gimg5.PNG" alt="PARANA EM OBRAS">
-        <img id="img02"  style="margin-bottom:20px;" src="ghimg45.PNG" alt="GOVERNO DO ESTADO">
-    </div>
-    <input class="font9865"
-       style="padding-bottom:25px;font-family:'GothamLight';"
-       type="text"
-       value="CONSTRUÇÃO DA DELEGACIA CIDADÃ IIIA">
-    <footer>
-        <img id="img04"   alt="GOVERNO DO ESTADO">
- 	<img id="img004"  src="BID.JPG" alt="GOVERNO DO ESTADO">
-        <img id="img05" src='SDG-16.svg' alt="PARANA EM OBRAS">
-        <img id="img06" src="Capturar77.JPG" alt="GOVERNO DO ESTADO">
-	<img id="imgbar" src="bar.JPG">
+        <div class="field"><label for="localizacao">Localização</label><input id="localizacao" /></div>
+        <div class="field"><label for="dimensao">Dimensão</label><input id="dimensao" /></div>
+        <div class="field"><label for="execucao">Execução</label><input id="execucao" /></div>
+        <div class="field"><label for="logoDropdown">ODS</label><select id="logoDropdown"></select></div>
+
+        <div class="field"><label for="logoDropdown1">Logo institucional esquerda</label><select id="logoDropdown1"></select></div>
+        <div class="field"><label for="logoDropdown2">Logo institucional direita</label><select id="logoDropdown2"></select></div>
+      </div>
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="bidCheckbox" /> Exibir logo BID</label>
+        <label><input type="checkbox" id="fundeparCheckbox" /> Exibir logo FUNDEPAR</label>
+      </div>
+    </section>
+
+    <section class="plate-wrap">
+      <div class="container">
+        <img id="img01" style="margin-bottom:40px;" src="gimg5.PNG" alt="PARANA EM OBRAS" />
+        <img id="img02" style="margin-bottom:20px;" src="ghimg45.PNG" alt="GOVERNO DO ESTADO" />
+      </div>
+
+      <input class="title-input" id="tituloPlaca" value="CONSTRUÇÃO DA DELEGACIA CIDADÃ IIIA" />
+
+      <footer>
+        <img id="img04" alt="Logo institucional esquerda" src="Capturar77.JPG" />
+        <img id="imgBID" src="BID.JPG" alt="Logo BID" />
+        <img id="imgFUNDEPAR" src="logofundepar.PNG" alt="Logo FUNDEPAR" />
+        <img id="img05" src="SDG-16.svg" alt="ODS" />
+        <img id="img06" src="Capturar77.JPG" alt="Logo institucional direita" />
+        <img id="imgbar" src="bar.JPG" alt="Separador" />
+
         <div id="infoBox1">
-            <strong style="position:absolute;
-left:10px;top:10px;font-family:'MontserratLight';" >VALOR DA OBRA:</strong><input type="text" id="p1" class="font9865"
-       style="padding-bottom:25px;font-family:'MontserratLight';"></p>
-            <strong style="position:absolute;
-left:10px;top:30px;font-family:'MontserratLight';">FONTE DE RECURSO:</strong><input type="text" id="p2" class="font9865"
-       style="padding-bottom:25px;font-family:'MontserratLight';"></p>
-            <strong style="position:absolute;
-left:10px;top:50px;font-family:'MontserratLight';">PRAZO DE EXECUÇÃO:</strong><input type="text" id="p3" class="font9865"
-       style="padding-bottom:25px;font-family:'MontserratLight';"></p>
+          <strong style="position:absolute;left:10px;top:10px;">VALOR DA OBRA:</strong><span id="p1" class="line-value"></span>
+          <strong style="position:absolute;left:10px;top:30px;">FONTE DE RECURSO:</strong><span id="p2" class="line-value"></span>
+          <strong style="position:absolute;left:10px;top:50px;">PRAZO DE EXECUÇÃO:</strong><span id="p3" class="line-value"></span>
         </div>
         <div id="infoBox2">
-             <strong style="position:absolute;
-left:10px;top:10px;font-family:'MontserratLight';">LOCALIZAÇÃO:</strong><input type="text" id="p31" class="font9865"
-       style="padding-bottom:25px;font-family:'MontserratLight';"></input>
-            <strong style="position:absolute;
-left:10px;top:30px;font-family:'MontserratLight';">DIMENSÃO:</strong><input type="text" id="p32" class="font9865"
-       style="padding-bottom:25px;font-family:'MontserratLight';"></input>
-            <strong style="position:absolute;
-left:10px;top:50px;font-family:'MontserratLight';">EXECUÇÃO:</strong><input  type="text" id="p33" class="font9865"
-       style="padding-bottom:25px;font-family:'MontserratLight';"></input>
+          <strong style="position:absolute;left:10px;top:10px;">LOCALIZAÇÃO:</strong><span id="p31" class="line-value"></span>
+          <strong style="position:absolute;left:10px;top:30px;">DIMENSÃO:</strong><span id="p32" class="line-value"></span>
+          <strong style="position:absolute;left:10px;top:50px;">EXECUÇÃO:</strong><span id="p33" class="line-value"></span>
         </div>
-    </footer>
-<div id="gl9" class="logo-container">
-	
-        <label for="logoDropdown">Escolha um logo:</label>
-        <select id="logoDropdown" onchange="displayimg();">
-            <!-- Adicione a tag <img> diretamente dentro da tag <option> -->
-	    <option value="#" selected>Selecione</option>
-            <option value="1">Logo 1</option>
-            <option value="2">Logo 2</option>
-            <option value="3">Logo 3</option>
-	    <option value="4">Logo 4</option>		
-	    <option value="5">Logo 5</option>
-            <option value="6">Logo 6</option>
- 	    <option value="7">Logo 7</option>
-	    <option value="8">Logo 8</option>
- 	    <option value="9">Logo 9</option>
-	    <option value="10">Logo 10</option>
- 	    <option value="11">Logo 11</option>
-  	    <option value="12">Logo 12</option>
-	    <option value="13">Logo 13</option>
-	    <option value="14">Logo 14</option>
-	    <option value="15">Logo 15</option>
-	    <option value="16">Logo 16</option>
-        </select>
- <label for="logoDropdown">Escolha um logo:</label>
-        <select id="logoDropdown1" onchange="displayimg1();">
-            <!-- Adicione a tag <img> diretamente dentro da tag <option> -->
-	    <option value="#" selected>Selecione</option>
-            <option value="1">Logo 1</option>
-            <option value="2">Logo 2</option>
-            <option value="3">Logo 3</option>
-	    <option value="4">Logo 4</option>
-	    <option value="5">Logo 5</option>
-	    <option value="6">Logo 6</option>
-	    <option value="7">Logo 7</option>
-	    <option value="8">Logo 8</option>
-	    <option value="9">Logo 9</option>
-            <option value="10">Logo 10</option>
-	    <option value="11">Logo 11</option>
-	    <option value="12">Logo 12</option>
-	    <option value="13">Logo 13</option>
-	    <option value="14">Logo 14</option>
-        </select>
-<label for="logoDropdown">Escolha um logo:</label>
-        <select id="logoDropdown2" onchange="displayimg2();">
-            <!-- Adicione a tag <img> diretamente dentro da tag <option> -->
-	    <option value="#" selected>Selecione</option>
-            <option value="1">Logo 1</option>
-            <option value="2">Logo 2</option>
-            <option value="3">Logo 3</option>
-	    <option value="4">Logo 4</option>
-	    <option value="5">Logo 5</option>
-	    <option value="6">Logo 6</option>
-	    <option value="7">Logo 7</option>
-	    <option value="8">Logo 8</option>
-	    <option value="9">Logo 9</option>
-            <option value="10">Logo 10</option>
-	    <option value="11">Logo 11</option>
-	    <option value="12">Logo 12</option>
-	    <option value="13">Logo 13</option>
-	    <option value="14">Logo 14</option>
-        </select>
-<input type="checkbox" id="bidCheckbox" onclick="dispBID();"> BID??</input>
-<input type="checkbox" id="bidCheckbox1" onclick="dispBID();"> FUNDEPAR??</input>
-    </div>
-</div>
+      </footer>
+    </section>
+  </div>
+
+  <script>
+    const odsMap = {
+      '1': 'SDG-16.svg', '2': 'SDG-2.svg', '3': 'SDG-1.svg', '4': 'SDG-4.svg', '5': 'SDG-3.svg',
+      '6': 'SDG-5.svg', '7': 'SDG-7.svg', '8': 'SDG-8.svg', '9': 'SDG-9.svg', '10': 'SDG-10.svg',
+      '11': 'SDG-11.svg', '12': 'SDG-12.svg', '13': 'SDG-13.svg', '14': 'SDG-14.svg', '15': 'SDG-15.svg',
+      '16': 'SDG-17.svg'
+    };
+
+    const logoMap = {
+      '1': 'Capturar77.JPG', '2': 'SESP.JPG', '3': 'Capturar77.JPG', '4': 'seccom.PNG', '5': 'secfez.PNG',
+      '6': 'SEIMT.png', '7': 'secagab.PNG', '8': 'seccul.PNG', '9': 'secics.PNG', '10': 'secjuscid.PNG',
+      '11': 'seccte.PNG', '12': 'secedu.PNG', '13': 'secinf.PNG', '14': 'secido.PNG'
+    };
+
+    function fillOptions(id, total, labelPrefix) {
+      const select = document.getElementById(id);
+      const initial = document.createElement('option');
+      initial.value = '';
+      initial.textContent = 'Selecione';
+      select.appendChild(initial);
+      for (let i = 1; i <= total; i += 1) {
+        const option = document.createElement('option');
+        option.value = String(i);
+        option.textContent = `${labelPrefix} ${i}`;
+        select.appendChild(option);
+      }
+      select.value = '1';
+    }
+
+    fillOptions('logoDropdown', 16, 'ODS');
+    fillOptions('logoDropdown1', 14, 'Logo');
+    fillOptions('logoDropdown2', 14, 'Logo');
+
+    const bindText = (inputId, outputId) => {
+      const input = document.getElementById(inputId);
+      const output = document.getElementById(outputId);
+      output.textContent = input.value;
+      input.addEventListener('input', () => { output.textContent = input.value; });
+    };
+
+    bindText('obraTitulo', 'tituloPlaca');
+    bindText('valorObra', 'p1');
+    bindText('fonteRecurso', 'p2');
+    bindText('prazoExecucao', 'p3');
+    bindText('localizacao', 'p31');
+    bindText('dimensao', 'p32');
+    bindText('execucao', 'p33');
+
+    document.getElementById('logoDropdown').addEventListener('change', (e) => {
+      document.getElementById('img05').src = odsMap[e.target.value] || 'SDG-16.svg';
+    });
+
+    const updateLogo = (selectId, imageId) => {
+      const value = document.getElementById(selectId).value;
+      document.getElementById(imageId).src = logoMap[value] || 'Capturar77.JPG';
+    };
+
+    document.getElementById('logoDropdown1').addEventListener('change', () => updateLogo('logoDropdown1', 'img04'));
+    document.getElementById('logoDropdown2').addEventListener('change', () => updateLogo('logoDropdown2', 'img06'));
+
+    document.getElementById('bidCheckbox').addEventListener('change', (e) => {
+      document.getElementById('imgBID').style.display = e.target.checked ? 'block' : 'none';
+    });
+
+    document.getElementById('fundeparCheckbox').addEventListener('change', (e) => {
+      document.getElementById('imgFUNDEPAR').style.display = e.target.checked ? 'block' : 'none';
+    });
+
+    updateLogo('logoDropdown1', 'img04');
+    updateLogo('logoDropdown2', 'img06');
+  </script>
 </body>
 </html>
-
