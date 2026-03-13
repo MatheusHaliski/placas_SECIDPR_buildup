@@ -82,3 +82,27 @@ strong { font-size: 12px; color: #001e6f; font-weight: normal; text-align: left;
 #p31 { left: 102px; top: 0; }
 #p32 { left: 84px; top: 20px; }
 #p33 { left: 83px; top: 40px; }
+
+
+.actions-row {
+  margin-top: 14px;
+}
+
+.actions-panel p {
+  margin: 0 0 12px;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  background: #0f3b69;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0b2d52;
+}

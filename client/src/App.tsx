@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactNode, useMemo, useState } from 'react';
+import { ChangeEvent, FormEvent, ReactNode, useEffect, useMemo, useState } from 'react';
 
 type PlateForm = {
   obraTitulo: string;
@@ -14,6 +14,10 @@ type PlateForm = {
   exibirBid: boolean;
   exibirFundepar: boolean;
 };
+
+const FORM_PATH = '/app/app';
+const PREVIEW_PATH = '/app/app/placa';
+const STORAGE_KEY = 'secid-placa-form';
 
 const odsMap: Record<string, string> = {
   '1': 'SDG-16.svg',
@@ -53,15 +57,87 @@ const initialState: PlateForm = {
   exibirFundepar: false
 };
 
-export default function App() {
-  const [form, setForm] = useState<PlateForm>(initialState);
+function readStoredForm(): PlateForm {
+  const raw = window.sessionStorage.getItem(STORAGE_KEY);
+  if (!raw) {
+    return initialState;
+  }
 
+  try {
+    return { ...initialState, ...JSON.parse(raw) } as PlateForm;
+  } catch {
+    return initialState;
+  }
+}
+
+function toPathname(pathname: string) {
+  if (pathname === PREVIEW_PATH) {
+    return PREVIEW_PATH;
+  }
+
+  return FORM_PATH;
+}
+
+function PlatePreview({ form }: { form: PlateForm }) {
   const odsSrc = useMemo(() => odsMap[form.ods] ?? 'SDG-16.svg', [form.ods]);
   const logoEsquerdaSrc = useMemo(() => logoMap[form.logoEsquerda] ?? 'logo-institucional.svg', [form.logoEsquerda]);
   const logoDireitaSrc = useMemo(() => logoMap[form.logoDireita] ?? 'logo-institucional.svg', [form.logoDireita]);
 
+  return (
+    <section className="plate-wrap">
+      <div className="container">
+        <div className="header-banner">PARANÁ EM OBRAS</div>
+        <div className="sub-banner">GOVERNO DO ESTADO</div>
+      </div>
+      <h2 className="title-input">{form.obraTitulo}</h2>
+      <footer>
+        <img id="img04" alt="Logo institucional esquerda" src={`/${logoEsquerdaSrc}`} />
+        {form.exibirBid && <img id="imgBID" src="/logo-bid.svg" alt="Logo BID" />}
+        {form.exibirFundepar && <img id="imgFUNDEPAR" src="/logo-fundepar.svg" alt="Logo FUNDEPAR" />}
+        <img id="img05" src={`/${odsSrc}`} alt="ODS" />
+        <img id="img06" src={`/${logoDireitaSrc}`} alt="Logo institucional direita" />
+        <img id="imgbar" src="/separator.svg" alt="Separador" />
+        <div id="infoBox1">
+          <strong style={{ left: 10, top: 10 }}>VALOR DA OBRA:</strong><span id="p1" className="line-value">{form.valorObra}</span>
+          <strong style={{ left: 10, top: 30 }}>FONTE DE RECURSO:</strong><span id="p2" className="line-value">{form.fonteRecurso}</span>
+          <strong style={{ left: 10, top: 50 }}>PRAZO DE EXECUÇÃO:</strong><span id="p3" className="line-value">{form.prazoExecucao}</span>
+        </div>
+        <div id="infoBox2">
+          <strong style={{ left: 10, top: 10 }}>LOCALIZAÇÃO:</strong><span id="p31" className="line-value">{form.localizacao}</span>
+          <strong style={{ left: 10, top: 30 }}>DIMENSÃO:</strong><span id="p32" className="line-value">{form.dimensao}</span>
+          <strong style={{ left: 10, top: 50 }}>EXECUÇÃO:</strong><span id="p33" className="line-value">{form.execucao}</span>
+        </div>
+      </footer>
+    </section>
+  );
+}
+
+export default function App() {
+  const [form, setForm] = useState<PlateForm>(() => readStoredForm());
+  const [path, setPath] = useState(() => toPathname(window.location.pathname));
+
+  useEffect(() => {
+    if (window.location.pathname !== FORM_PATH && window.location.pathname !== PREVIEW_PATH) {
+      window.history.replaceState({}, '', FORM_PATH);
+      setPath(FORM_PATH);
+    }
+
+    const handlePopState = () => {
+      setPath(toPathname(window.location.pathname));
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const setField = <K extends keyof PlateForm>(key: K, value: PlateForm[K]) => {
     setForm((current) => ({ ...current, [key]: value }));
+  };
+
+  const persistAndGo = (nextPath: string, data: PlateForm) => {
+    window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    window.history.pushState({}, '', nextPath);
+    setPath(nextPath);
   };
 
   const onText =
@@ -82,9 +158,31 @@ export default function App() {
       setField(key, event.target.checked);
     };
 
+  const submitForm = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    persistAndGo(PREVIEW_PATH, form);
+  };
+
+  const goToForm = () => {
+    persistAndGo(FORM_PATH, form);
+  };
+
+  if (path === PREVIEW_PATH) {
+    return (
+      <div className="page">
+        <section className="form-panel actions-panel">
+          <h1>Placa personalizada</h1>
+          <p>Confira o resultado com os dados enviados no formulário.</p>
+          <button type="button" onClick={goToForm}>Voltar para editar dados</button>
+        </section>
+        <PlatePreview form={form} />
+      </div>
+    );
+  }
+
   return (
     <div className="page">
-      <section className="form-panel">
+      <form className="form-panel" onSubmit={submitForm}>
         <h1>Formulário da Placa SECID</h1>
         <div className="form-grid">
           <Field label="Título da obra"><input value={form.obraTitulo} onChange={onText('obraTitulo')} /></Field>
@@ -120,33 +218,11 @@ export default function App() {
           <label><input type="checkbox" checked={form.exibirBid} onChange={onCheckbox('exibirBid')} /> Exibir logo BID</label>
           <label><input type="checkbox" checked={form.exibirFundepar} onChange={onCheckbox('exibirFundepar')} /> Exibir logo FUNDEPAR</label>
         </div>
-      </section>
-
-      <section className="plate-wrap">
-        <div className="container">
-          <div className="header-banner">PARANÁ EM OBRAS</div>
-          <div className="sub-banner">GOVERNO DO ESTADO</div>
+        <div className="actions-row">
+          <button type="submit">Gerar placa</button>
         </div>
-        <input className="title-input" value={form.obraTitulo} onChange={onText('obraTitulo')} />
-        <footer>
-          <img id="img04" alt="Logo institucional esquerda" src={`/${logoEsquerdaSrc}`} />
-          {form.exibirBid && <img id="imgBID" src="/logo-bid.svg" alt="Logo BID" />}
-          {form.exibirFundepar && <img id="imgFUNDEPAR" src="/logo-fundepar.svg" alt="Logo FUNDEPAR" />}
-          <img id="img05" src={`/${odsSrc}`} alt="ODS" />
-          <img id="img06" src={`/${logoDireitaSrc}`} alt="Logo institucional direita" />
-          <img id="imgbar" src="/separator.svg" alt="Separador" />
-          <div id="infoBox1">
-            <strong style={{ left: 10, top: 10 }}>VALOR DA OBRA:</strong><span id="p1" className="line-value">{form.valorObra}</span>
-            <strong style={{ left: 10, top: 30 }}>FONTE DE RECURSO:</strong><span id="p2" className="line-value">{form.fonteRecurso}</span>
-            <strong style={{ left: 10, top: 50 }}>PRAZO DE EXECUÇÃO:</strong><span id="p3" className="line-value">{form.prazoExecucao}</span>
-          </div>
-          <div id="infoBox2">
-            <strong style={{ left: 10, top: 10 }}>LOCALIZAÇÃO:</strong><span id="p31" className="line-value">{form.localizacao}</span>
-            <strong style={{ left: 10, top: 30 }}>DIMENSÃO:</strong><span id="p32" className="line-value">{form.dimensao}</span>
-            <strong style={{ left: 10, top: 50 }}>EXECUÇÃO:</strong><span id="p33" className="line-value">{form.execucao}</span>
-          </div>
-        </footer>
-      </section>
+      </form>
+      <PlatePreview form={form} />
     </div>
   );
 }
