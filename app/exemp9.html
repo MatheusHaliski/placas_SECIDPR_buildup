@@ -6,10 +6,19 @@
   <title>Editor da Placa SECID</title>
   <base href="../" />
   <style>
+    @font-face {
+      font-family: 'MontserratLight';
+      src: url('Montserrat-Light.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'GothamLight';
+      src: url('Gotham-Light.otf') format('opentype');
+    }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'MontserratLight', Arial, sans-serif;
       background: linear-gradient(160deg, #d6d9de 0%, #c2c6cd 100%);
       color: #102640;
     }
@@ -23,7 +32,8 @@
       gap: 22px;
     }
 
-    .form-panel {
+    .form-panel,
+    .actions-panel {
       background: #f8fbff;
       border: 2px solid #d5e4f3;
       border-radius: 18px;
@@ -31,7 +41,8 @@
       padding: 20px;
     }
 
-    .form-panel h1 {
+    .form-panel h1,
+    .actions-panel h1 {
       margin: 0 0 12px;
       font-size: 28px;
       color: #0f3b69;
@@ -87,6 +98,33 @@
       font-weight: 700;
     }
 
+    .actions-row {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    button {
+      border: none;
+      background: #124879;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0f3b69;
+    }
+
+    .secondary {
+      background: #7389a5;
+    }
+
+    #previewView { display: none; }
+
     .plate-wrap {
       position: relative;
       margin: 0 auto;
@@ -104,39 +142,25 @@
       padding-top: 30px;
     }
 
-    .header-banner {
-      background: #174f82;
-      color: #fff;
-      font-size: 44px;
-      font-weight: 700;
-      border-radius: 12px;
-      padding: 20px 32px;
-      display: inline-block;
-      margin-bottom: 24px;
-    }
-
-    .sub-banner {
-      background: #fff;
-      color: #174f82;
-      border: 2px solid #174f82;
-      font-size: 26px;
-      font-weight: 700;
-      border-radius: 12px;
-      padding: 10px 24px;
-      display: inline-block;
-      margin-bottom: 16px;
+    #img01,
+    #img02,
+    #img03 {
+      border-radius: 20px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
     }
 
     .title-input {
       text-align: center;
       font-size: 70px;
       color: #1c3b61;
-      font-family: Arial, sans-serif;
+      font-family: 'GothamLight', sans-serif;
       border: none;
       background-color: transparent;
       width: 100%;
       outline: none;
       margin-bottom: 26px;
+      display: block;
+      text-transform: uppercase;
     }
 
     footer {
@@ -222,13 +246,13 @@
       text-align: left;
       display: block;
       margin-bottom: 5px;
-      font-family: Arial, sans-serif;
+      font-family: 'MontserratLight', sans-serif;
     }
 
     .line-value {
       position: absolute;
       color: #001e6f;
-      font-family: Arial, sans-serif;
+      font-family: 'MontserratLight', sans-serif;
       font-size: 17px;
       text-transform: uppercase;
     }
@@ -239,128 +263,187 @@
     #p31 { left: 102px; top: 0; }
     #p32 { left: 84px; top: 20px; }
     #p33 { left: 83px; top: 40px; }
+
+    @media print {
+      body { background: #fff; }
+      .actions-panel, #formView { display: none !important; }
+      .page { padding: 0; }
+      .plate-wrap { box-shadow: none; }
+    }
   </style>
 </head>
 <body>
   <div class="page">
-    <section class="form-panel">
+    <section id="formView" class="form-panel">
       <h1>Formulário da Placa SECID</h1>
-      <div class="form-grid">
-        <div class="field"><label for="obraTitulo">Título da obra</label><input id="obraTitulo" value="CONSTRUÇÃO DA DELEGACIA CIDADÃ IIIA" /></div>
-        <div class="field"><label for="valorObra">Valor da obra</label><input id="valorObra" placeholder="R$ 0,00" /></div>
-        <div class="field"><label for="fonteRecurso">Fonte de recurso</label><input id="fonteRecurso" /></div>
-        <div class="field"><label for="prazoExecucao">Prazo de execução</label><input id="prazoExecucao" /></div>
+      <form id="plateForm">
+        <div class="form-grid">
+          <div class="field"><label for="obraTitulo">Título da obra</label><input id="obraTitulo" value="CONSTRUÇÃO DA DELEGACIA CIDADÃ IIIA" /></div>
+          <div class="field"><label for="valorObra">Valor da obra</label><input id="valorObra" placeholder="R$ 0,00" /></div>
+          <div class="field"><label for="fonteRecurso">Fonte de recurso</label><input id="fonteRecurso" /></div>
+          <div class="field"><label for="prazoExecucao">Prazo de execução</label><input id="prazoExecucao" /></div>
 
-        <div class="field"><label for="localizacao">Localização</label><input id="localizacao" /></div>
-        <div class="field"><label for="dimensao">Dimensão</label><input id="dimensao" /></div>
-        <div class="field"><label for="execucao">Execução</label><input id="execucao" /></div>
-        <div class="field"><label for="logoDropdown">ODS</label><select id="logoDropdown"></select></div>
+          <div class="field"><label for="localizacao">Localização</label><input id="localizacao" /></div>
+          <div class="field"><label for="dimensao">Dimensão</label><input id="dimensao" /></div>
+          <div class="field"><label for="execucao">Execução</label><input id="execucao" /></div>
+          <div class="field"><label for="odsSelect">ODS</label><select id="odsSelect"></select></div>
 
-        <div class="field"><label for="logoDropdown1">Logo institucional esquerda</label><select id="logoDropdown1"></select></div>
-        <div class="field"><label for="logoDropdown2">Logo institucional direita</label><select id="logoDropdown2"></select></div>
-      </div>
-      <div class="checkbox-group">
-        <label><input type="checkbox" id="bidCheckbox" /> Exibir logo BID</label>
-        <label><input type="checkbox" id="fundeparCheckbox" /> Exibir logo FUNDEPAR</label>
-      </div>
+          <div class="field"><label for="logoDropdown1">Logo institucional esquerda</label><select id="logoDropdown1"></select></div>
+          <div class="field"><label for="logoDropdown2">Logo institucional direita</label><select id="logoDropdown2"></select></div>
+        </div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" id="bidCheckbox" /> Exibir logo BID</label>
+          <label><input type="checkbox" id="fundeparCheckbox" /> Exibir logo FUNDEPAR</label>
+        </div>
+        <div class="actions-row">
+          <button type="submit">Gerar placa</button>
+        </div>
+      </form>
     </section>
 
-    <section class="plate-wrap">
-      <div class="container">
-        <div class="header-banner">PARANÁ EM OBRAS</div>
-        <div class="sub-banner">GOVERNO DO ESTADO</div>
-      </div>
-
-      <input class="title-input" id="tituloPlaca" value="CONSTRUÇÃO DA DELEGACIA CIDADÃ IIIA" />
-
-      <footer>
-        <img id="img04" alt="Logo institucional esquerda" src="logo-institucional.svg" />
-        <img id="imgBID" src="logo-bid.svg" alt="Logo BID" />
-        <img id="imgFUNDEPAR" src="logo-fundepar.svg" alt="Logo FUNDEPAR" />
-        <img id="img05" src="SDG-16.svg" alt="ODS" />
-        <img id="img06" src="logo-institucional.svg" alt="Logo institucional direita" />
-        <img id="imgbar" src="separator.svg" alt="Separador" />
-
-        <div id="infoBox1">
-          <strong style="position:absolute;left:10px;top:10px;">VALOR DA OBRA:</strong><span id="p1" class="line-value"></span>
-          <strong style="position:absolute;left:10px;top:30px;">FONTE DE RECURSO:</strong><span id="p2" class="line-value"></span>
-          <strong style="position:absolute;left:10px;top:50px;">PRAZO DE EXECUÇÃO:</strong><span id="p3" class="line-value"></span>
+    <section id="previewView">
+      <section class="actions-panel">
+        <h1>Pré-visualização da placa</h1>
+        <div class="actions-row" style="justify-content:flex-start;">
+          <button id="backButton" class="secondary" type="button">Voltar para editar</button>
+          <button id="exportPdfButton" type="button">Exportar para PDF</button>
         </div>
-        <div id="infoBox2">
-          <strong style="position:absolute;left:10px;top:10px;">LOCALIZAÇÃO:</strong><span id="p31" class="line-value"></span>
-          <strong style="position:absolute;left:10px;top:30px;">DIMENSÃO:</strong><span id="p32" class="line-value"></span>
-          <strong style="position:absolute;left:10px;top:50px;">EXECUÇÃO:</strong><span id="p33" class="line-value"></span>
+      </section>
+
+      <section class="plate-wrap">
+        <div class="container">
+          <img id="img01" style="margin-bottom:40px;" src="gimg5.PNG" alt="PARANÁ EM OBRAS" />
+          <img id="img02" style="margin-bottom:20px;" src="ghimg45.PNG" alt="GOVERNO DO ESTADO" />
         </div>
-      </footer>
+
+        <span class="title-input" id="tituloPlaca">CONSTRUÇÃO DA DELEGACIA CIDADÃ IIIA</span>
+
+        <footer>
+          <img id="img04" alt="Logo institucional esquerda" src="Capturar77.JPG" />
+          <img id="imgBID" src="BID.JPG" alt="Logo BID" />
+          <img id="imgFUNDEPAR" src="logofundepar.PNG" alt="Logo FUNDEPAR" />
+          <img id="img05" src="SDG-16.svg" alt="ODS" />
+          <img id="img06" src="Capturar77.JPG" alt="Logo institucional direita" />
+          <img id="imgbar" src="bar.JPG" alt="Separador" />
+
+          <div id="infoBox1">
+            <strong style="position:absolute;left:10px;top:10px;">VALOR DA OBRA:</strong><span id="p1" class="line-value"></span>
+            <strong style="position:absolute;left:10px;top:30px;">FONTE DE RECURSO:</strong><span id="p2" class="line-value"></span>
+            <strong style="position:absolute;left:10px;top:50px;">PRAZO DE EXECUÇÃO:</strong><span id="p3" class="line-value"></span>
+          </div>
+          <div id="infoBox2">
+            <strong style="position:absolute;left:10px;top:10px;">LOCALIZAÇÃO:</strong><span id="p31" class="line-value"></span>
+            <strong style="position:absolute;left:10px;top:30px;">DIMENSÃO:</strong><span id="p32" class="line-value"></span>
+            <strong style="position:absolute;left:10px;top:50px;">EXECUÇÃO:</strong><span id="p33" class="line-value"></span>
+          </div>
+        </footer>
+      </section>
     </section>
   </div>
 
   <script>
-    const odsMap = {
-      '1': 'SDG-16.svg', '2': 'SDG-2.svg', '3': 'SDG-1.svg', '4': 'SDG-4.svg', '5': 'SDG-3.svg',
-      '6': 'SDG-5.svg', '7': 'SDG-7.svg', '8': 'SDG-8.svg', '9': 'SDG-9.svg', '10': 'SDG-10.svg',
-      '11': 'SDG-11.svg', '12': 'SDG-12.svg', '13': 'SDG-13.svg', '14': 'SDG-14.svg', '15': 'SDG-15.svg',
-      '16': 'SDG-17.svg'
-    };
+    const odsOptions = [
+      { label: 'ODS 1', file: 'SDG-16.svg' },
+      { label: 'ODS 2', file: 'SDG-2.svg' },
+      { label: 'ODS 3', file: 'SDG-1.svg' },
+      { label: 'ODS 4', file: 'SDG-4.svg' },
+      { label: 'ODS 5', file: 'SDG-3.svg' },
+      { label: 'ODS 6', file: 'SDG-5.svg' },
+      { label: 'ODS 7', file: 'SDG-7.svg' },
+      { label: 'ODS 8', file: 'SDG-8.svg' },
+      { label: 'ODS 9', file: 'SDG-9.svg' },
+      { label: 'ODS 10', file: 'SDG-10.svg' },
+      { label: 'ODS 11', file: 'SDG-11.svg' },
+      { label: 'ODS 12', file: 'SDG-12.svg' },
+      { label: 'ODS 13', file: 'SDG-13.svg' },
+      { label: 'ODS 14', file: 'SDG-14.svg' },
+      { label: 'ODS 15', file: 'SDG-15.svg' },
+      { label: 'ODS 16', file: 'SDG-17.svg' },
+      { label: 'ODS PNG', file: 'SDG-1.PNG' }
+    ];
 
-    const logoMap = Object.fromEntries(Array.from({ length: 14 }, (_, index) => [String(index + 1), 'logo-institucional.svg']));
+    const logoOptions = [
+      { label: 'Logo 1 - Capturar77', file: 'Capturar77.JPG' },
+      { label: 'Logo 2 - SESP', file: 'SESP.JPG' },
+      { label: 'Logo 3 - SECOM', file: 'SECOM.png' },
+      { label: 'Logo 4 - SEAP', file: 'SEAP.png' },
+      { label: 'Logo 5 - SEIMT', file: 'SEIMT.png' },
+      { label: 'Logo 6 - SECID', file: 'SECID.PNG' },
+      { label: 'Logo 7 - SECADM', file: 'secadm.PNG' },
+      { label: 'Logo 8 - SECAGAB', file: 'secagab.PNG' },
+      { label: 'Logo 9 - SECCOM', file: 'seccom.PNG' },
+      { label: 'Logo 10 - SECCTE', file: 'seccte.PNG' },
+      { label: 'Logo 11 - SECCUL', file: 'seccul.PNG' },
+      { label: 'Logo 12 - SECEDU', file: 'secedu.PNG' },
+      { label: 'Logo 13 - SECFEZ', file: 'secfez.PNG' },
+      { label: 'Logo 14 - SECICS', file: 'secics.PNG' },
+      { label: 'Logo 15 - SECIDO', file: 'secido.PNG' },
+      { label: 'Logo 16 - SECINF', file: 'secinf.PNG' },
+      { label: 'Logo 17 - SECINV', file: 'secinv.PNG' },
+      { label: 'Logo 18 - SECJUSCID', file: 'secjuscid.PNG' },
+      { label: 'Logo 19 - EDUQ', file: 'EDUQ-1.PNG' },
+      { label: 'Logo 20 - LOGOFUNDEPAR1', file: 'LOGOFUNDEPAR1.PNG' }
+    ];
 
-    function fillOptions(id, total, labelPrefix) {
+    const formView = document.getElementById('formView');
+    const previewView = document.getElementById('previewView');
+    const plateForm = document.getElementById('plateForm');
+
+    function fillSelect(id, options) {
       const select = document.getElementById(id);
-      const initial = document.createElement('option');
-      initial.value = '';
-      initial.textContent = 'Selecione';
-      select.appendChild(initial);
-      for (let i = 1; i <= total; i += 1) {
+      select.innerHTML = '';
+      options.forEach((item, index) => {
         const option = document.createElement('option');
-        option.value = String(i);
-        option.textContent = `${labelPrefix} ${i}`;
+        option.value = item.file;
+        option.textContent = item.label;
+        if (index === 0) option.selected = true;
         select.appendChild(option);
-      }
-      select.value = '1';
+      });
     }
 
-    fillOptions('logoDropdown', 16, 'ODS');
-    fillOptions('logoDropdown1', 14, 'Logo');
-    fillOptions('logoDropdown2', 14, 'Logo');
+    function updatePlate() {
+      document.getElementById('tituloPlaca').textContent = document.getElementById('obraTitulo').value || '';
+      document.getElementById('p1').textContent = document.getElementById('valorObra').value || '';
+      document.getElementById('p2').textContent = document.getElementById('fonteRecurso').value || '';
+      document.getElementById('p3').textContent = document.getElementById('prazoExecucao').value || '';
+      document.getElementById('p31').textContent = document.getElementById('localizacao').value || '';
+      document.getElementById('p32').textContent = document.getElementById('dimensao').value || '';
+      document.getElementById('p33').textContent = document.getElementById('execucao').value || '';
 
-    const bindText = (inputId, outputId) => {
-      const input = document.getElementById(inputId);
-      const output = document.getElementById(outputId);
-      output.textContent = input.value;
-      input.addEventListener('input', () => { output.textContent = input.value; });
-    };
+      document.getElementById('img05').src = document.getElementById('odsSelect').value || 'SDG-16.svg';
+      document.getElementById('img04').src = document.getElementById('logoDropdown1').value || 'Capturar77.JPG';
+      document.getElementById('img06').src = document.getElementById('logoDropdown2').value || 'Capturar77.JPG';
+      document.getElementById('imgBID').style.display = document.getElementById('bidCheckbox').checked ? 'block' : 'none';
+      document.getElementById('imgFUNDEPAR').style.display = document.getElementById('fundeparCheckbox').checked ? 'block' : 'none';
+    }
 
-    bindText('obraTitulo', 'tituloPlaca');
-    bindText('valorObra', 'p1');
-    bindText('fonteRecurso', 'p2');
-    bindText('prazoExecucao', 'p3');
-    bindText('localizacao', 'p31');
-    bindText('dimensao', 'p32');
-    bindText('execucao', 'p33');
+    fillSelect('odsSelect', odsOptions);
+    fillSelect('logoDropdown1', logoOptions);
+    fillSelect('logoDropdown2', logoOptions);
 
-    document.getElementById('logoDropdown').addEventListener('change', (e) => {
-      document.getElementById('img05').src = odsMap[e.target.value] || 'SDG-16.svg';
+    plateForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      updatePlate();
+      formView.style.display = 'none';
+      previewView.style.display = 'block';
     });
 
-    const updateLogo = (selectId, imageId) => {
-      const value = document.getElementById(selectId).value;
-      document.getElementById(imageId).src = logoMap[value] || 'logo-institucional.svg';
-    };
+    ['obraTitulo','valorObra','fonteRecurso','prazoExecucao','localizacao','dimensao','execucao','odsSelect','logoDropdown1','logoDropdown2','bidCheckbox','fundeparCheckbox']
+      .forEach((id) => {
+        document.getElementById(id).addEventListener('input', updatePlate);
+        document.getElementById(id).addEventListener('change', updatePlate);
+      });
 
-    document.getElementById('logoDropdown1').addEventListener('change', () => updateLogo('logoDropdown1', 'img04'));
-    document.getElementById('logoDropdown2').addEventListener('change', () => updateLogo('logoDropdown2', 'img06'));
-
-    document.getElementById('bidCheckbox').addEventListener('change', (e) => {
-      document.getElementById('imgBID').style.display = e.target.checked ? 'block' : 'none';
+    document.getElementById('backButton').addEventListener('click', () => {
+      previewView.style.display = 'none';
+      formView.style.display = 'block';
     });
 
-    document.getElementById('fundeparCheckbox').addEventListener('change', (e) => {
-      document.getElementById('imgFUNDEPAR').style.display = e.target.checked ? 'block' : 'none';
+    document.getElementById('exportPdfButton').addEventListener('click', () => {
+      window.print();
     });
 
-    updateLogo('logoDropdown1', 'img04');
-    updateLogo('logoDropdown2', 'img06');
+    updatePlate();
   </script>
 </body>
 </html>
