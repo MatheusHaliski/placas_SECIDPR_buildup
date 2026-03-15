@@ -4,20 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Editor da Placa SECID</title>
+  <base href="/" />
   <style>
-    @font-face {
-      font-family: 'MontserratLight';
-      src: url('Montserrat-Light.ttf') format('truetype');
-    }
-
-    @font-face {
-      font-family: 'GothamLight';
-      src: url('Gotham-Light.otf') format('opentype');
-    }
 
     body {
       margin: 0;
-      font-family: 'MontserratLight', Arial, sans-serif;
+      font-family: Arial, sans-serif;
       background: linear-gradient(160deg, #d6d9de 0%, #c2c6cd 100%);
       color: #102640;
     }
@@ -112,18 +104,34 @@
       padding-top: 30px;
     }
 
-    #img01,
-    #img02,
-    #img03 {
-      border-radius: 20px;
-      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    .header-banner {
+      background: #174f82;
+      color: #fff;
+      font-size: 44px;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 20px 32px;
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+
+    .sub-banner {
+      background: #fff;
+      color: #174f82;
+      border: 2px solid #174f82;
+      font-size: 26px;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 10px 24px;
+      display: inline-block;
+      margin-bottom: 16px;
     }
 
     .title-input {
       text-align: center;
       font-size: 70px;
       color: #1c3b61;
-      font-family: 'GothamLight', sans-serif;
+      font-family: Arial, sans-serif;
       border: none;
       background-color: transparent;
       width: 100%;
@@ -214,13 +222,13 @@
       text-align: left;
       display: block;
       margin-bottom: 5px;
-      font-family: 'MontserratLight', sans-serif;
+      font-family: Arial, sans-serif;
     }
 
     .line-value {
       position: absolute;
       color: #001e6f;
-      font-family: 'MontserratLight', sans-serif;
+      font-family: Arial, sans-serif;
       font-size: 17px;
       text-transform: uppercase;
     }
@@ -259,19 +267,19 @@
 
     <section class="plate-wrap">
       <div class="container">
-        <img id="img01" style="margin-bottom:40px;" src="gimg5.PNG" alt="PARANA EM OBRAS" />
-        <img id="img02" style="margin-bottom:20px;" src="ghimg45.PNG" alt="GOVERNO DO ESTADO" />
+        <div class="header-banner">PARANÁ EM OBRAS</div>
+        <div class="sub-banner">GOVERNO DO ESTADO</div>
       </div>
 
       <input class="title-input" id="tituloPlaca" value="CONSTRUÇÃO DA DELEGACIA CIDADÃ IIIA" />
 
       <footer>
-        <img id="img04" alt="Logo institucional esquerda" src="Capturar77.JPG" />
-        <img id="imgBID" src="BID.JPG" alt="Logo BID" />
-        <img id="imgFUNDEPAR" src="logofundepar.PNG" alt="Logo FUNDEPAR" />
+        <img id="img04" alt="Logo institucional esquerda" src="logo-institucional.svg" />
+        <img id="imgBID" src="logo-bid.svg" alt="Logo BID" />
+        <img id="imgFUNDEPAR" src="logo-fundepar.svg" alt="Logo FUNDEPAR" />
         <img id="img05" src="SDG-16.svg" alt="ODS" />
-        <img id="img06" src="Capturar77.JPG" alt="Logo institucional direita" />
-        <img id="imgbar" src="bar.JPG" alt="Separador" />
+        <img id="img06" src="logo-institucional.svg" alt="Logo institucional direita" />
+        <img id="imgbar" src="separator.svg" alt="Separador" />
 
         <div id="infoBox1">
           <strong style="position:absolute;left:10px;top:10px;">VALOR DA OBRA:</strong><span id="p1" class="line-value"></span>
@@ -295,11 +303,7 @@
       '16': 'SDG-17.svg'
     };
 
-    const logoMap = {
-      '1': 'Capturar77.JPG', '2': 'SESP.JPG', '3': 'Capturar77.JPG', '4': 'seccom.PNG', '5': 'secfez.PNG',
-      '6': 'SEIMT.png', '7': 'secagab.PNG', '8': 'seccul.PNG', '9': 'secics.PNG', '10': 'secjuscid.PNG',
-      '11': 'seccte.PNG', '12': 'secedu.PNG', '13': 'secinf.PNG', '14': 'secido.PNG'
-    };
+    const logoMap = Object.fromEntries(Array.from({ length: 14 }, (_, index) => [String(index + 1), 'logo-institucional.svg']));
 
     function fillOptions(id, total, labelPrefix) {
       const select = document.getElementById(id);
@@ -341,7 +345,7 @@
 
     const updateLogo = (selectId, imageId) => {
       const value = document.getElementById(selectId).value;
-      document.getElementById(imageId).src = logoMap[value] || 'Capturar77.JPG';
+      document.getElementById(imageId).src = logoMap[value] || 'logo-institucional.svg';
     };
 
     document.getElementById('logoDropdown1').addEventListener('change', () => updateLogo('logoDropdown1', 'img04'));
