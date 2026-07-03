@@ -86,8 +86,8 @@ function PlatePreview({ form }: { form: PlateForm }) {
   return (
     <section className="plate-wrap">
       <div className="container">
-        <div className="header-banner">PARANÁ EM OBRAS</div>
-        <div className="sub-banner">GOVERNO DO ESTADO</div>
+        <div className="header-banner">OBRAS PÚBLICAS</div>
+        <div className="sub-banner">GOVERNO</div>
       </div>
       <h2 className="title-input">{form.obraTitulo}</h2>
       <footer>

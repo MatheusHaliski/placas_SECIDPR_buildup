@@ -6,31 +6,12 @@ server/dist
 npm-debug.log*
 
 # Generated exemp9 binary assets (synced during client build/dev)
-public/BID.JPG
-public/Capturar77.JPG
-public/EDUQ-1.PNG
 public/Gotham-Light.otf
-public/LOGOFUNDEPAR1.PNG
 public/Montserrat-Light.ttf
 public/SDG-1.PNG
-public/SEAP.png
-public/SECID.PNG
-public/SECOM.png
-public/SEIMT.png
-public/SESP.JPG
 public/bar.JPG
-public/ghimg45.PNG
-public/gimg5.PNG
-public/logofundepar.PNG
-public/secadm.PNG
-public/secagab.PNG
-public/seccom.PNG
-public/seccte.PNG
-public/seccul.PNG
-public/secedu.PNG
-public/secfez.PNG
-public/secics.PNG
-public/secido.PNG
-public/secinf.PNG
-public/secinv.PNG
-public/secjuscid.PNG
+
+# TypeScript / Vite build artifacts
+client/*.tsbuildinfo
+client/vite.config.js
+client/vite.config.d.ts
