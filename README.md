@@ -1,4 +1,4 @@
-# Placas SECIDPR - React + TypeScript Webapp
+# Placas - React + TypeScript Webapp
 
 This repository is structured as a normal **client + server** TypeScript application:
 
@@ -8,7 +8,7 @@ This repository is structured as a normal **client + server** TypeScript applica
 
 ## Routes
 
-- `/app/app`: SECID placa data form.
+- `/app/app`: placa data form.
 - `/app/app/placa`: customized placa preview generated from the submitted form data.
 
 ## Development

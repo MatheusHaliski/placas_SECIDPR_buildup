@@ -17,7 +17,7 @@ type PlateForm = {
 
 const FORM_PATH = '/app/app';
 const PREVIEW_PATH = '/app/app/placa';
-const STORAGE_KEY = 'secid-placa-form';
+const STORAGE_KEY = 'placa-form';
 
 const odsMap: Record<string, string> = {
   '1': 'SDG-16.svg',
@@ -183,7 +183,7 @@ export default function App() {
   return (
     <div className="page">
       <form className="form-panel" onSubmit={submitForm}>
-        <h1>Formulário da Placa SECID</h1>
+        <h1>Formulário da Placa</h1>
         <div className="form-grid">
           <Field label="Título da obra"><input value={form.obraTitulo} onChange={onText('obraTitulo')} /></Field>
           <Field label="Valor da obra"><input value={form.valorObra} onChange={onText('valorObra')} placeholder="R$ 0,00" /></Field>

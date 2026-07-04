@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <main style={{ margin: 0, padding: 0, minHeight: '100vh' }}>
       <iframe
-        title="Editor da Placa SECID"
+        title="Editor da Placa"
         srcDoc={htmlContent}
         style={{ width: '100%', height: '100vh', border: 'none' }}
       />
