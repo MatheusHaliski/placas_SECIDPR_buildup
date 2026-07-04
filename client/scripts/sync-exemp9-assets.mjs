@@ -8,34 +8,10 @@ const repoRoot = path.resolve(__dirname, '../..');
 const publicDir = path.join(repoRoot, 'public');
 
 const binaryAssets = [
-  'BID.JPG',
-  'Capturar77.JPG',
-  'EDUQ-1.PNG',
   'Gotham-Light.otf',
-  'LOGOFUNDEPAR1.PNG',
   'Montserrat-Light.ttf',
   'SDG-1.PNG',
-  'SEAP.png',
-  'SECID.PNG',
-  'SECOM.png',
-  'SEIMT.png',
-  'SESP.JPG',
-  'bar.JPG',
-  'ghimg45.PNG',
-  'gimg5.PNG',
-  'logofundepar.PNG',
-  'secadm.PNG',
-  'secagab.PNG',
-  'seccom.PNG',
-  'seccte.PNG',
-  'seccul.PNG',
-  'secedu.PNG',
-  'secfez.PNG',
-  'secics.PNG',
-  'secido.PNG',
-  'secinf.PNG',
-  'secinv.PNG',
-  'secjuscid.PNG'
+  'bar.JPG'
 ];
 
 mkdirSync(publicDir, { recursive: true });

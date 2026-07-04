@@ -312,18 +312,18 @@
 
       <section class="plate-wrap">
         <div class="container">
-          <img id="img01" style="margin-bottom:40px;" src="gimg5.PNG" alt="PARANÁ EM OBRAS" />
-          <img id="img02" style="margin-bottom:20px;" src="ghimg45.PNG" alt="GOVERNO DO ESTADO" />
+          <img id="img01" style="margin-bottom:40px;" src="logo-governo.svg" alt="GOVERNO" />
+          <img id="img02" style="margin-bottom:20px;" src="logo-obras.svg" alt="OBRAS PÚBLICAS" />
         </div>
 
         <span class="title-input" id="tituloPlaca">CONSTRUÇÃO DA DELEGACIA CIDADÃ IIIA</span>
 
         <footer>
-          <img id="img04" alt="Logo institucional esquerda" src="Capturar77.JPG" />
-          <img id="imgBID" src="BID.JPG" alt="Logo BID" />
-          <img id="imgFUNDEPAR" src="logofundepar.PNG" alt="Logo FUNDEPAR" />
+          <img id="img04" alt="Logo institucional esquerda" src="logo-institucional.svg" />
+          <img id="imgBID" src="logo-bid.svg" alt="Logo BID" />
+          <img id="imgFUNDEPAR" src="logo-fundepar.svg" alt="Logo FUNDEPAR" />
           <img id="img05" src="SDG-16.svg" alt="ODS" />
-          <img id="img06" src="Capturar77.JPG" alt="Logo institucional direita" />
+          <img id="img06" src="logo-institucional.svg" alt="Logo institucional direita" />
           <img id="imgbar" src="bar.JPG" alt="Separador" />
 
           <div id="infoBox1">
@@ -362,28 +362,10 @@
       { label: 'ODS PNG', file: 'SDG-1.PNG' }
     ];
 
-    const logoOptions = [
-      { label: 'Logo 1 - Capturar77', file: 'Capturar77.JPG' },
-      { label: 'Logo 2 - SESP', file: 'SESP.JPG' },
-      { label: 'Logo 3 - SECOM', file: 'SECOM.png' },
-      { label: 'Logo 4 - SEAP', file: 'SEAP.png' },
-      { label: 'Logo 5 - SEIMT', file: 'SEIMT.png' },
-      { label: 'Logo 6 - SECID', file: 'SECID.PNG' },
-      { label: 'Logo 7 - SECADM', file: 'secadm.PNG' },
-      { label: 'Logo 8 - SECAGAB', file: 'secagab.PNG' },
-      { label: 'Logo 9 - SECCOM', file: 'seccom.PNG' },
-      { label: 'Logo 10 - SECCTE', file: 'seccte.PNG' },
-      { label: 'Logo 11 - SECCUL', file: 'seccul.PNG' },
-      { label: 'Logo 12 - SECEDU', file: 'secedu.PNG' },
-      { label: 'Logo 13 - SECFEZ', file: 'secfez.PNG' },
-      { label: 'Logo 14 - SECICS', file: 'secics.PNG' },
-      { label: 'Logo 15 - SECIDO', file: 'secido.PNG' },
-      { label: 'Logo 16 - SECINF', file: 'secinf.PNG' },
-      { label: 'Logo 17 - SECINV', file: 'secinv.PNG' },
-      { label: 'Logo 18 - SECJUSCID', file: 'secjuscid.PNG' },
-      { label: 'Logo 19 - EDUQ', file: 'EDUQ-1.PNG' },
-      { label: 'Logo 20 - LOGOFUNDEPAR1', file: 'LOGOFUNDEPAR1.PNG' }
-    ];
+    const logoOptions = Array.from({ length: 14 }, (_, index) => ({
+      label: `Logo ${index + 1}`,
+      file: 'logo-institucional.svg'
+    }));
 
     const formView = document.getElementById('formView');
     const previewView = document.getElementById('previewView');
@@ -411,8 +393,8 @@
       document.getElementById('p33').textContent = document.getElementById('execucao').value || '';
 
       document.getElementById('img05').src = document.getElementById('odsSelect').value || 'SDG-16.svg';
-      document.getElementById('img04').src = document.getElementById('logoDropdown1').value || 'Capturar77.JPG';
-      document.getElementById('img06').src = document.getElementById('logoDropdown2').value || 'Capturar77.JPG';
+      document.getElementById('img04').src = document.getElementById('logoDropdown1').value || 'logo-institucional.svg';
+      document.getElementById('img06').src = document.getElementById('logoDropdown2').value || 'logo-institucional.svg';
       document.getElementById('imgBID').style.display = document.getElementById('bidCheckbox').checked ? 'block' : 'none';
       document.getElementById('imgFUNDEPAR').style.display = document.getElementById('fundeparCheckbox').checked ? 'block' : 'none';
     }
